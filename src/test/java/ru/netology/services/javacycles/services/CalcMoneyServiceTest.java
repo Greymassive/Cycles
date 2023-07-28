@@ -2,24 +2,21 @@ package ru.netology.services.javacycles.services;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class CalcMoneyServiceTest {
 
-    @Test
-    void lowValues() {
+    @ParameterizedTest
+    @CsvFileSource(files="src/main/test/resources/values.csv")
+    void values(int expected, int income, int expences, int threshold) {
         CalcMoneyService service = new CalcMoneyService();
-        int expected = 3;
-        int actual = service.calcMoney(10000, 3000, 20000);
+
+        int actual = service.calcMoney(income, expences, threshold);
 
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    void highValues() {
-        CalcMoneyService service = new CalcMoneyService();
-        int expected = 2;
-        int actual = service.calcMoney(100000, 60000, 150000);
 
-        Assertions.assertEquals(expected, actual);
-    }
 }
